@@ -6,6 +6,7 @@ import base64
 import easyocr
 from flask import Flask, request, jsonify
 
+
 # Initialize EasyOCR Reader
 reader = easyocr.Reader(["en"], model_storage_directory="./EasyOCR")
 
@@ -50,23 +51,10 @@ def extract_text():
 def health_check():
   return "Server is running", 200
 
-if __name__ == "__main__":
-  parser = argparse.ArgumentParser(
-      description="Run the OCR extraction server."
-  )
-  parser.add_argument(
-      "--host",
-      type=str,
-      default="0.0.0.0",
-      help="Host address to run the server on (default: 0.0.0.0)",
-  )
-  parser.add_argument(
-      "--port",
-      type=int,
-      default=5000,
-      help="Port to run the server on (default: 5000)",
-  )
-  args = parser.parse_args()
+parser = argparse.ArgumentParser(description='Start the captcha solver server.')
+parser.add_argument('--host', type=str, default='0.0.0.0', help='Host address')
+parser.add_argument('--port', type=int, default=5001, help='Port number')
+args = parser.parse_args()
 
-  # Run Flask server
-  app.run(host=args.host, port=args.port)
+if __name__ == '__main__':
+    app.run(host=args.host, port=args.port)
